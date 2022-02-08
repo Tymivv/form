@@ -22,7 +22,6 @@ const App = () => {
   const [file, setFile] = useState([]);
   const [numberFiles, setnumberFiles] = useState(1);
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
-  console.log("App ~ formData", formData)
   const [currentStep, setСurrentStep] = useState(1);
 
   const handleChange = (event) => {
@@ -34,19 +33,19 @@ const App = () => {
       file,
     });
   };
-
   const toDownloadFiles = (event) => {
     for (let size = 0; size < event.target.files.length; size++) {
       setFile([...file, event.target.files[size]])
     }
 }
+  const reset = () => setFormData({ ...INITIAL_STATE });
 
   const handleSubmit = event => {
-    event.preventDefault();
     setFormData({
       ...formData,
       file,
     });
+    reset();
   }
 
   const _next = () => {
@@ -112,7 +111,7 @@ const App = () => {
           <Input
             type="checkbox"
             name="checkboxOnOff"
-            value={checkboxOnOff}
+            checked={checkboxOnOff}
             onChange={handleChange}
             />
           {' '}
@@ -237,7 +236,7 @@ const App = () => {
         )}
         {currentStep === 4 && (
           <Button
-            color="danger"
+            color="primary"
           >
             save
           </Button>
