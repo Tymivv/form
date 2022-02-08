@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import Checkbox from './Checkbox/Checkbox'
+import Checkbox from '../Checkbox/Checkbox'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const INITIAL_STATE = {
   header: '',
@@ -8,6 +9,7 @@ const INITIAL_STATE = {
   checkboxOnOff: false,
   phone: '',
   email: '',
+  file: [],
   checkboxServise1: false, 
   checkboxServise2: false,
   checkboxServise3: false,
@@ -20,10 +22,11 @@ const App = () => {
   const [file, setFile] = useState([]);
   const [numberFiles, setnumberFiles] = useState(1);
   const [formData, setFormData] = useState({ ...INITIAL_STATE });
+  console.log("App ~ formData", formData)
   const [currentStep, setСurrentStep] = useState(1);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
     const isCheckbox = type === 'checkbox';
     setFormData({
       ...formData,
@@ -39,12 +42,11 @@ const App = () => {
 }
 
   const handleSubmit = event => {
+    event.preventDefault();
     setFormData({
       ...formData,
       file,
     });
-    alert(`Введенные данные: \nЗаголовок : ${header} \nОписание : ${description} \nСтатус : ${checkboxOnOff} \nНомер телефона : ${phone} \nЕмайл : ${email} \nУслуга1 : ${checkboxServise1} \nУслуга2 : ${checkboxServise2}  \nУслуга3 : ${checkboxServise3} \nУслуга4 : ${checkboxServise4} \nУслуга5 : ${checkboxServise5}`)
-    setFormData({ ...INITIAL_STATE });
   }
 
   const _next = () => {
@@ -154,36 +156,9 @@ const App = () => {
               <Label for="exampleFile">
                 Фотография
               </Label>
-              {numberFiles >= 1 && (
+              {Array.from({ length: numberFiles }).map((_, idx) =>
                 <Input
-                  id="exampleFile"
-                  name="file"
-                  type="file"
-                  onChange={toDownloadFiles}
-                />)}
-              {numberFiles >= 2 && (
-                <Input
-                  id="exampleFile"
-                  name="file"
-                  type="file"
-                  onChange={toDownloadFiles}
-                />)}
-              {numberFiles >= 3 && (
-                <Input
-                  id="exampleFile"
-                  name="file"
-                  type="file"
-                  onChange={toDownloadFiles}
-                />)}
-              {numberFiles >= 4 && (
-                <Input
-                  id="exampleFile"
-                  name="file"
-                  type="file"
-                  onChange={toDownloadFiles}
-                />)}
-              {numberFiles === 5 && (
-                <Input
+                  key = {idx}
                   id="exampleFile"
                   name="file"
                   type="file"

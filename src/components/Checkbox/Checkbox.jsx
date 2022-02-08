@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { FormGroup, Label, Input } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Checkbox = ({LabelName, handleChange, checkboxValue, checkboxName}) => {
 
@@ -18,6 +19,7 @@ const Checkbox = ({LabelName, handleChange, checkboxValue, checkboxName}) => {
   </FormGroup>
   );
 
+  // eslint-disable-next-line no-unreachable
   Checkbox.propTypes = {
     LabelNamed: PropTypes.string,
     handleChange: PropTypes.func,
